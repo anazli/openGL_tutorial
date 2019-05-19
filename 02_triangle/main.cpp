@@ -30,8 +30,9 @@ void main()                                 \n\
 
 int main()
 {
-    Window *w = new Window(width, height);
+    Window *w = new Window(width, height, "triangle");
     int window_success = w->initialize();
+
 
     GLfloat vertices[] = {
         -0.5f, -0.5f, 0.0f,
@@ -54,7 +55,8 @@ int main()
     glBindVertexArray(0);
 
     Shader *sh = new Shader;
-    sh->createFromString(vShader, fShader);
+    ifstream vertexStream, fragmentStream;
+    sh->createFromFiles("../shaders/shader.vs", "../shaders/shader.fs");
 
     glfwSetFramebufferSizeCallback(w->getWindowPtr(), frame_buffer_size_callback);
 
