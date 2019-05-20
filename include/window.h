@@ -6,7 +6,10 @@
 
 class Window {
     public:
-        Window(GLint w = 0, GLint h = 0): width(w), height(h){}
+        Window(GLint w = 0, GLint h = 0, const char *n = "window"):
+                width(w),
+                height(h),
+                name(n){}
         ~Window();
         int initialize();
 
@@ -20,6 +23,7 @@ class Window {
         GLFWwindow *window;
         GLint width, height;
         GLint buffer_width, buffer_height;
+        const char *name;
 };
 
 void process_input(GLFWwindow *mainWindow);

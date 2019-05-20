@@ -19,6 +19,8 @@ class Shader {
             clearShader();
         }
 
+        GLuint getId()const{return shaderID;}
+
         void createFromString(const char *vertexCode, const char *fragmentCode);
         void createFromFiles(const char *vertexLoc, const char *fragmentLoc);
 

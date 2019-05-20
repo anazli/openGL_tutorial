@@ -17,7 +17,7 @@ int Window::initialize()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    window = glfwCreateWindow(width, height, "window", nullptr, nullptr);
+    window = glfwCreateWindow(width, height, name, nullptr, nullptr);
     if(!window)
     {
         cout << "GLFW window creation failed!" << endl;

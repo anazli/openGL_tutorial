@@ -1,21 +1,21 @@
 #include<iostream>
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
-#include<string>
-#include<cmath>
+#include<glm/glm.hpp>
+#include<glm/gtc/matrix_transform.hpp>
+#include<glm/gtc/type_ptr.hpp>
 #include "../include/window.h"
 #include "../include/shader.h"
 
 using namespace std;
 
-int width = 800;
-int height = 600;
+const int width = 800;
+const int height = 600;
 
 int main()
 {
-    Window *w = new Window(width, height, "triangle");
-    int window_success = w->initialize();
-
+    Window *w = new Window(width, height, "transformations");
+    int success = w->initialize();
 
     GLfloat vertices[] = {
         -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -23,7 +23,8 @@ int main()
          0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f
     };
 
-    GLuint VBO, VAO;
+    GLuint VAO, VBO;
+
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
 
@@ -50,15 +51,16 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        float timeValue = glfwGetTime();
-        float uniformValue = sin(timeValue) + 0.5f;
-        int vertexColorLocation = glGetUniformLocation(sh->getId(), "uniformColor");
         sh->useShader();
-        glUniform1f(vertexColorLocation, uniformValue);
-        
+
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::translate(trans, glm::vec3(0.5, -0.5, 0.0));
+        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+        GLuint transLoc = glGetUniformLocation(sh->getId(), "transform");
+        glUniformMatrix4fv(transLoc, 1, GL_FALSE, glm::value_ptr(trans));
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-
         glfwSwapBuffers(w->getWindowPtr());
         glfwPollEvents();
     }
