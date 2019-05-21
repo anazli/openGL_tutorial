@@ -71,6 +71,10 @@ int main()
         GLuint resLoc = glGetUniformLocation(sh->getId(), "res");
         glUniform2f(resLoc, (float)width, (float)height);
 
+        GLuint timeLoc = glGetUniformLocation(sh->getId(), "time");
+        float time = glfwGetTime();
+        glUniform1f(timeLoc, sin(time)/2.0f + 0.5f);
+
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
