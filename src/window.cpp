@@ -45,10 +45,19 @@ Window::~Window()
 }
 
 
-void process_input(GLFWwindow *mainWindow)
+void process_input(GLFWwindow *mainWindow, Camera &cam)
 {
     if(glfwGetKey(mainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(mainWindow, true);
+    
+    if(glfwGetKey(mainWindow, GLFW_KEY_UP) == GLFW_PRESS)
+        cam.move(FORWARD); 
+    if(glfwGetKey(mainWindow, GLFW_KEY_DOWN) == GLFW_PRESS)
+        cam.move(BACKWARD); 
+    if(glfwGetKey(mainWindow, GLFW_KEY_LEFT) == GLFW_PRESS)
+        cam.move(LEFT); 
+    if(glfwGetKey(mainWindow, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        cam.move(RIGHT); 
 }
 
 void frame_buffer_size_callback(GLFWwindow *mainWindow, int width, int height)

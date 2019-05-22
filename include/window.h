@@ -3,6 +3,7 @@
 
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
+#include "camera.h"
 
 class Window {
     public:
@@ -26,7 +27,7 @@ class Window {
         const char *name;
 };
 
-void process_input(GLFWwindow *mainWindow);
+void process_input(GLFWwindow *mainWindow, Camera &cam);
 void frame_buffer_size_callback(GLFWwindow *mainWindow, int width, int height);
 
 #endif
